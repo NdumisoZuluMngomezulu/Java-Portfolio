@@ -1,0 +1,6 @@
+Methods for Indexing an ArrayList
+Action 	Method	Description
+Get an element	get(int index)	Returns the element at the specified position in the list.
+Find an element's index	indexOf(Object o)	Returns the index of the first occurrence of the specified element, or -1 if not found.
+Set (replace) an element	set(int index, E element)	Replaces the element at the specified position with a new element. The list size remains the same.
+Add an element at an index	add(int index, E element)	Inserts an element at a specific position, shifting subsequent elements to the right and increasing the list's size.
