@@ -2,24 +2,30 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Random;
 
-class Personal_Account{
+class PersonalAccount{
     String name;
     int account_no;
     private String pin;
     float balance;
 
-  public void set_account_no(){
+
+    PersonalAccount(String igama, float bal){
+        this.name = igama;
+        float balance = bal;
+    }
+    
+    public void set_account_no(){
     Random random = new Random();
     this.account_no = random.nextInt(101010101, 987654321);
-  }
+    }
     
-  public void set_pin(){
+    public void set_pin(){
     Scanner takepin = new Scanner(System.in);
     System.out.println("Enter your pin. Pin must be 5 digits");
     boolean state = false;
     while (state = false){
         String pin_temp = takepin.nextLine();
-        if ((pin_temp.length() != 5){
+        if (pin_temp.length() != 5){
             System.err.println("Invalid pin");
             state = false;
         } else {
@@ -42,12 +48,12 @@ class Personal_Account{
     takepin.close();
     }
     
-  public void set_account_no(){
+    public void set_account_no(){
     Random random = new Random();
     this.account_no = random.nextInt(123456789, 987654321);
     }
     
-  public void deposit(float amount){
+    public void deposit(float amount){
         if (amount > 0){
             this.balance += amount;
         } else {
@@ -55,7 +61,7 @@ class Personal_Account{
         }
     }
     
-  public float withdraw(){
+    public float withdraw(){
         Scanner take_draw = new Scanner(System.in);
         System.out.println("Enter your pin");
         String pin_temp = takepin.nextLine();
@@ -76,6 +82,35 @@ class Personal_Account{
            
        }
        take_draw.close();
+    }
+
+    class SavingsAccount{
+        float balance;
+        int savingsAccountNumber;
+
+        SavingsAccount(float bal){
+            this.balance = bal;
+        }
+
+        public void setSavingsAccountNumber(){
+            Random random = new Random();
+            this.savingsAccountNumber = random.nextInt(10101010, 98765432);
+        }
+
+        public void deposit(float amount){
+            this.balance += amount;
+        }
+    }
+
+    public void transferToSavings(double amount, SavingsAccount targetSavings) {
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount; // Deduct from main
+            targetSavings.deposit(amount); // Add to savings
+            System.out.println("Transferred $" + amount + " from Main " + accountNumber + " to Savings " + targetSavings.savingsAccountNumber);
+        } else {
+            System.out.println("Transfer failed: Insufficient funds or invalid amount in main account.");
+        }
+    }
 }
 
 public class Accounts {
