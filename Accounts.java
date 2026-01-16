@@ -19,7 +19,7 @@ class Personal_Account{
     boolean state = false;
     while (state = false){
         String pin_temp = takepin.nextLine();
-        if ((pin_temp.length() > 5) || (pin_temp.length < 5)){
+        if ((pin_temp.length() != 5){
             System.err.println("Invalid pin");
             state = false;
         } else {
@@ -27,7 +27,7 @@ class Personal_Account{
             for (char c : pin_temp.toCharArray()){
                 if (!Character.isDigit(c)){
                     check_count += 1;
-                } 
+                }
             }
             if (check_count > 0){
                 System.err.println("Invalid pin. All digits must be characters");
@@ -55,15 +55,27 @@ class Personal_Account{
         }
     }
     
-  public void withdraw(float amount){
+  public float withdraw(){
         Scanner take_draw = new Scanner(System.in);
         System.out.println("Enter your pin");
         String pin_temp = takepin.nextLine();
         
-        if ((pin_temp.length() > 5) || (pin_temp.length < 5)){
+        if (pin_temp != this.pin){
             System.err.println("Invalid pin");
-        take_draw.close();
-    }
+            return 0.00
+       } else {
+           System.out.println("Enter withdrawal amount");
+           float amount = take_draw.nextFloat();
+           if (amount > this.balance){
+               throw new ArithmeticException("Insufficient funds");
+               
+               return 0.00;
+           }
+           this.balance -= amount;
+           return amount;
+           
+       }
+       take_draw.close();
 }
 
 public class Accounts {
