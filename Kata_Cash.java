@@ -1,20 +1,23 @@
 import java.util.HashMap;
-import java,util.Map;
+import java.util.Map;
 
-public class Kata_Cash{
-    public static void main(String[] args){
+class Kata_Cash {
+    public static void main(String[] args) {
+        HashMap<Integer, String> output = new HashMap<>();
         
+        output = get_change(500, 600);
+        System.out.println(output);
     }
     
-    public static HashMap<Integer, String> change(int due, int paid){
-        int change_due = due - paid;
+    public static HashMap<Integer, String> get_change(int due, int paid){
+        int change_due = (paid*100) - (due*100);
         if (change_due < 0){
-            throw new ArithmeticException("Error: Amount paid insufficient");
+            throw new ArithmeticException("Error: Insufficient funds");
         }
         
-        Map<Integer, String> Denominations = new HashMap<>(){{
+        HashMap<Integer, String> notes = new HashMap<>(){{
            put(20000, "Two Hundred");
-           put(10000, "Hundred");
+           put(10000, "One Hundred");
            put(5000, "Fifty");
            put(2000, "Twenty");
            put(1000, "Ten");
@@ -27,12 +30,17 @@ public class Kata_Cash{
            put(5, "5c");
         }};
         
-        for (Map.Entry <Integer, String> entry: Denominations.entrySet()){
-            key = entry.getkey();
-            value = entry.getValue();
+        HashMap<Integer, String> change_map = new HashMap<>();
+        int count;
+        
+        for (Map.Entry <Integer, String> entry : notes.entrySet()){
+            count = change_due / entry.getKey();
+            change_due = change_due % entry.getKey();
+            if (count > 0){
+                change_map.put(count, entry.getValue());
+            }
         }
         
-        Map<String, Integer> change_dict = new HashMap<>();
-        
+        return change_map;
     }
 }
